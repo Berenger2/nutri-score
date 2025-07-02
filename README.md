@@ -1,14 +1,1 @@
 # nutri-score
-
-dozzle:
-    container_name: dozzle
-    image: amir20/dozzle:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8080:8080"
-    networks:
-      - monitoring
-
-networks:
-  monitoring:
