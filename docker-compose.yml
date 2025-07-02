@@ -39,6 +39,7 @@ services:
       - back
     networks:
       - monitoring
+  
   dozzle:
       container_name: dozzle
       image: amir20/dozzle:latest
