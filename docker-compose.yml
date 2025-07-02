@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  back:
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    container_name: sogood-back
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back:/app
+    networks:
+      - monitoring
+
+  front:
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    container_name: sogood-front
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - back
+    networks:
+      - monitoring
+
+  stream:
+    build:
+      context: .
+      dockerfile: stream/Dockerfile
+    container_name: sogood-stream
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    depends_on:
+      - back
+    networks:
+      - monitoring
+  dozzle:
+      container_name: dozzle
+      image: amir20/dozzle:latest
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      ports:
+        - "8080:8080"
+      networks:
+      - monitoring
+
+networks:
+  monitoring:
