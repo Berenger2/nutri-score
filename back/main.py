@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from services.foodfacts import get_product_by_code, search_text,get_all_products
-
-
+from services.foodfacts import get_product_by_code, search_text,get_all_products, parse_ingredients
 
 app = FastAPI(
     title="SoGood Backend",
@@ -27,6 +25,10 @@ async def fetch_product_text(text: str):
 @app.get("/products", summary="Récupère tous les produits")
 async def fetch_all_products():
     return get_all_products()
+
+@app.get("/analysis", summary="Analyse la liste d'ingrédients", response_model=list[dict])
+async def ingredient_analysis(text: str, lang: str = "fr"):
+    return parse_ingredients(text, lang)
 
 if __name__ == "__main__":
     import uvicorn

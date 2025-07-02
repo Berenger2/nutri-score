@@ -3,8 +3,11 @@ from openfoodfacts import API, APIVersion, Environment
 from src.utils import filter_fields, _extract_field
 from src.config import DEFAULT_PRODUCT_FIELDS
 
-api = openfoodfacts.API(user_agent="MyAwesomeApp/1.0", version=APIVersion.v3,
-          environment=Environment.net )
+api = API(
+    user_agent="SoGoodBackend/1.0",
+    version=APIVersion.v3,
+    environment=Environment.net
+)
 
 def get_product_by_code(code: str, fields: list[str] = None) -> dict:
     if fields is None:
@@ -41,3 +44,7 @@ def get_all_products(fields: list[str] = None) -> dict:
         "page_size": results.get("page_size"),
         "products": filtered,
     }
+
+def parse_ingredients(text: str, lang: str = "fr") -> list[dict]:
+    results = api.product.parse_ingredients(text, lang=lang)
+    return results
