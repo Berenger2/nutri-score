@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
+from services.foodfacts import get_product_by_code, search_text 
 
 app = FastAPI(
     title="SoGood Backend",
@@ -13,6 +14,18 @@ app = FastAPI(
 async def root_redirect():
     return RedirectResponse(url="/docs")
 
+@app.get("/product/{code}", summary="Récupère un produit par code-barres")
+async def fetch_product(code: str):
+    return get_product_by_code(code)
+
+@app.get("/product/search/{text}", summary="Recherche de produits par texte")
+async def fetch_product_text(text: str):
+    return search_text(text)
+
+
+@app.get("/health", summary="Vérification de l'état du service")
+async def health_check():
+    return {"status": "ok", "message": "Service is running"}
 
 if __name__ == "__main__":
     import uvicorn
