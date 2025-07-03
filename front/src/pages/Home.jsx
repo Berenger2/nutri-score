@@ -4,6 +4,7 @@ import ProductFilters from "../components/ProductFilters";
 import SearchBar from "../components/SearchBar";
 import { getAllProducts, searchProduct} from "../api/api";
 import { filterProducts } from "../utils/filterProducts";
+import IngredientAnalysis from "../components/IngredientAnalysis";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
