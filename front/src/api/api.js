@@ -2,12 +2,14 @@ import { BASE_URL } from "../config";
 
 export async function getAllProducts() {
   const res = await fetch(`${BASE_URL}/products`);
-  return await res.json();
+  const data = await res.json();
+  return Array.isArray(data.products) ? data.products : [];
 }
 
 export async function searchProduct(text) {
   const res = await fetch(`${BASE_URL}/product/search/${encodeURIComponent(text)}`);
-  return await res.json();
+  const data = await res.json();
+  return Array.isArray(data.products) ? data.products : [];
 }
 
 export async function getProductByCode(code) {
