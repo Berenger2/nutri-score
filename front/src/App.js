@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Analyse from "./pages/Analyse";
 import ProductDetail from "./pages/ProductDetail";
+import ScanCode from "./pages/ScanCode";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/analyse" element={<Analyse />} />
         <Route path="/product/:code" element={<ProductDetail />} />
+        <Route path="/scan" element={<ScanCode />} />
       </Routes>
     </Router>
   );

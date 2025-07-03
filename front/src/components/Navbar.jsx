@@ -32,6 +32,13 @@ export default function Navbar() {
       >
         Analyse d'ingrédients
       </Link>
+      <Link to="/scan"   style={{
+          color: location.pathname === "/scan" ? "#66f" : "#fff",
+          textDecoration: "none",
+          fontWeight: "bold",
+        }}>
+  Scanner un code-barres
+</Link>
     </nav>
   );
 }
