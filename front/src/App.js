@@ -1,9 +1,6 @@
-import React from 'react';
+import React from "react";
+import Home from "./pages/Home";
 
 export default function App() {
-  return (
-    <main>
-      <h1>Bienvenue sur SoGood</h1>
-    </main>
-  );
+  return <Home />;
 }
