@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 // Normalisation des données produit
 function normalizeProduct(p) {
   if (typeof p === "string") {
@@ -68,6 +68,9 @@ export default function ProductCard({ product }) {
             Nova: <b>{p.nova_group}</b>
           </span>
         )}
+            <Link to={`/product/${p.code}`}>
+      Voir fiche détaillée
+    </Link>
       </div>
     </li>
   );
