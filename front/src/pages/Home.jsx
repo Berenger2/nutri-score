@@ -4,7 +4,6 @@ import ProductFilters from "../components/ProductFilters";
 import SearchBar from "../components/SearchBar";
 import { getAllProducts, searchProduct} from "../api/api";
 import { filterProducts } from "../utils/filterProducts";
-import IngredientAnalysis from "../components/IngredientAnalysis";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -34,13 +33,15 @@ export default function Home() {
         novascore={novascore} setNovascore={setNovascore}
         brand={brand} setBrand={setBrand}
       />
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {validProducts.length === 0 ? (
-          <li>Aucun produit</li>
-        ) : (
-          validProducts.map((p, idx) => <ProductCard key={p.code || p.product_name || idx} product={p} />)
-        )}
-      </ul>
+<ul style={{ listStyle: "none", padding: 0 }}>
+  {validProducts.length === 0 ? (
+    <li>Aucun produit</li>
+  ) : (
+    validProducts.map((p, idx) => (
+      <ProductCard key={p.code || idx} product={p} />
+    ))
+  )}
+</ul>
     </main>
   );
 }
