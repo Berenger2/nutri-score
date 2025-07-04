@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Alert
+} from "@mui/material";
+import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 
 export default function ScanCode() {
   const [code, setCode] = useState("");
@@ -17,57 +26,56 @@ export default function ScanCode() {
   };
 
   return (
-    <main style={{
-      maxWidth: 420,
-      margin: "60px auto",
-      padding: 32,
-      borderRadius: 18,
-      background: "#fff",
-      boxShadow: "0 4px 16px #0001",
-      textAlign: "center"
-    }}>
-      <h2 style={{ fontSize: 30, fontWeight: 900, marginBottom: 20 }}>Scanner un code-barres</h2>
-      <form onSubmit={handleSubmit} style={{ marginBottom: 24 }}>
-        <input
-          type="text"
-          value={code}
-          onChange={e => setCode(e.target.value)}
-          placeholder="Ex: 3017620422003"
-          style={{
-            padding: "14px 20px",
-            fontSize: 21,
-            borderRadius: 8,
-            border: "1px solid #ddd",
-            width: "90%",
-            marginBottom: 12,
-            outline: "none",
-            letterSpacing: "1px"
-          }}
-          autoFocus
-        />
-        <br />
-        <button
-          type="submit"
-          style={{
-            padding: "13px 32px",
-            borderRadius: 8,
-            background: "#2e425c",
-            color: "#fff",
-            border: "none",
-            fontSize: 18,
-            fontWeight: 800,
-            cursor: "pointer",
-            marginTop: 6
-          }}
-        >
-          Scanner
-        </button>
-      </form>
-      {error && <div style={{ color: "#e74c3c", marginBottom: 14 }}>{error}</div>}
-      <div style={{ color: "#777", fontSize: 15 }}>
-        Simulez un scan en saisissant un code produit.<br />
-        Exemple : <b>3017620422003</b>
-      </div>
-    </main>
+    <Box sx={{ maxWidth: 420, mx: "auto", my: 7, px: 1 }}>
+      <Paper elevation={3} sx={{
+        borderRadius: 4,
+        p: { xs: 2.5, md: 4 },
+        textAlign: "center"
+      }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+          <QrCodeScannerIcon sx={{ fontSize: 38, color: "#2e425c" }} />
+        </Box>
+        <Typography variant="h5" fontWeight={900} color="primary" gutterBottom>
+          Scanner un code-barres
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2.5 }}>
+          <TextField
+            value={code}
+            onChange={e => setCode(e.target.value)}
+            placeholder="Ex : 3017620422003"
+            variant="outlined"
+            fullWidth
+           
+            autoFocus
+            sx={{ mb: 1.5 }}
+            error={!!error}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+            sx={{
+              fontWeight: 800,
+              fontSize: 18,
+              borderRadius: 2,
+              py: 1.5,
+              letterSpacing: "0.5px"
+            }}
+            
+          >
+            Scanner
+          </Button>
+        </Box>
+        {error && (
+          <Alert severity="error" sx={{ mb: 1.5 }}>{error}</Alert>
+        )}
+        <Typography color="text.secondary" fontSize={15}>
+          Simulez un scan en saisissant un code produit.<br />
+          Exemple : <b>3017620422003</b>
+        </Typography>
+      </Paper>
+    </Box>
   );
 }
