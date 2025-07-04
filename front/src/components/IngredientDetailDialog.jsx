@@ -1,3 +1,17 @@
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  Stack,
+  Typography,
+  Chip,
+  Box
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import SpaIcon from "@mui/icons-material/Spa";
+import BlockIcon from "@mui/icons-material/Block";
+
 // Dictionnaire des labels en fr
 const KEY_LABELS = {
   percent_estimate: "Proportion estimée (%)",
@@ -20,85 +34,83 @@ export default function IngredientDetailDialog({ open, ingredient, onClose }) {
   if (!open || !ingredient) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0, left: 0, right: 0, bottom: 0,
-        background: "rgba(0,0,0,0.3)",
-        zIndex: 1000,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="xs"
+      PaperProps={{
+        sx: {
+          borderRadius: 4,
+          px: { xs: 2.5, md: 3.5 },
+          py: 3
+        }
       }}
-      onClick={onClose}
     >
-      <div
-        style={{
-          background: "#fff",
-          borderRadius: 12,
-          padding: "32px 32px 24px",
-          minWidth: 350,
-          maxWidth: 410,
-          boxShadow: "0 8px 32px #0002",
-          position: "relative",
-          fontFamily: "sans-serif"
-        }}
-        onClick={e => e.stopPropagation()}
-      >
-        <button
+      <DialogTitle sx={{ p: 0, mb: 2 }}>
+        <Typography fontWeight={700} fontSize={22}>
+          Détail ingrédient
+        </Typography>
+        <IconButton
           onClick={onClose}
-          style={{
+          sx={{
             position: "absolute",
-            top: 10,
-            right: 14,
-            background: "none",
-            border: "none",
-            fontSize: 26,
-            color: "#bbb",
-            cursor: "pointer"
+            right: 8,
+            top: 6,
+            color: "#bdbdbd"
           }}
-          title="Fermer"
-        >×</button>
-        <h2 style={{marginBottom: 16, fontWeight: 700, fontSize: 22}}>Détail ingrédient</h2>
-        <ul style={{listStyle: "none", padding: 0, margin: 0}}>
+          aria-label="Fermer"
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={{ p: 0 }}>
+        <Stack spacing={2}>
           {Object.entries(ingredient)
             .filter(([k]) => !HIDDEN_KEYS.includes(k))
             .map(([k, v]) => {
               if (v === null || v === undefined || v === "") return null;
               let label = KEY_LABELS[k] || k;
               let value = v;
+
               if (k === "vegan" || k === "vegetarian") {
                 value = (
-                  <span style={{
-                    display: "inline-block",
-                    padding: "3px 10px",
-                    borderRadius: 14,
-                    color: "#fff",
-                    background: v === "yes" ? "#27ae60" : v === "no" ? "#e74c3c" : "#bbb",
-                    fontWeight: "bold",
-                    marginLeft: 6
-                  }}>
-                    {v === "yes" ? "Oui" : v === "no" ? "Non" : v}
-                  </span>
+                  <Chip
+                    icon={v === "yes" ? <SpaIcon color="success" /> : <BlockIcon color="error" />}
+                    label={v === "yes" ? "Oui" : v === "no" ? "Non" : v}
+                    sx={{
+                      bgcolor: v === "yes" ? "#e6fbe6" : v === "no" ? "#ffe6e6" : "#fafafa",
+                      color: v === "yes" ? "#239d5e" : v === "no" ? "#e74c3c" : "#999",
+                      fontWeight: 700,
+                      px: 1.2
+                    }}
+                  />
                 );
               }
               if (k.startsWith("percent")) {
-                value = <b style={{color:"#2980b9"}}>{parseFloat(v).toFixed(1)} %</b>;
+                value = (
+                  <Typography fontWeight={700} color="#2980b9" component="span">
+                    {parseFloat(v).toFixed(1)} %
+                  </Typography>
+                );
               }
               if (k === "text") {
-                value = <span style={{fontWeight: 600, fontSize: 19, color:"#333"}}>{v}</span>;
+                value = (
+                  <Typography fontWeight={600} fontSize={19} color="#333" component="span">
+                    {v}
+                  </Typography>
+                );
               }
               return (
-                <li key={k} style={{marginBottom: 10, display:"flex"}}>
-                  <span style={{minWidth: 145, color: "#666", fontWeight: 500}}>
+                <Stack key={k} direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+                  <Typography sx={{ minWidth: 155, color: "#666", fontWeight: 500 }}>
                     {label}
-                  </span>
-                  <span style={{marginLeft: 8}}>{value}</span>
-                </li>
+                  </Typography>
+                  <Box component="span">{value}</Box>
+                </Stack>
               );
             })}
-        </ul>
-      </div>
-    </div>
+        </Stack>
+      </DialogContent>
+    </Dialog>
   );
 }

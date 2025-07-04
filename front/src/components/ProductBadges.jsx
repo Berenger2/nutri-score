@@ -3,8 +3,8 @@ const nutriColors = { a: "#24b75e", b: "#afd852", c: "#ffe049", d: "#fc9e4f", e:
 export default function ProductBadges({ nutriscore, nova, additives, allergens }) {
   return (
     <div style={{display:"flex", alignItems:"center", gap:18, marginBottom: 16}}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ color: "#767676" }}>Nutri-Score :</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <span style={{ color: "#767676",fontSize: 15 }}>Nutri-Score :</span>
         <span style={{
           display: "inline-block",
           minWidth: 32,
@@ -12,7 +12,7 @@ export default function ProductBadges({ nutriscore, nova, additives, allergens }
           color: "#fff",
           background: nutriColors[nutriscore?.toLowerCase() || "c"] || "#cfcfcf",
           fontWeight: 800,
-          fontSize: 21,
+          fontSize: 17,
           borderRadius: 8,
           padding: "3px 13px"
         }}>
@@ -20,7 +20,7 @@ export default function ProductBadges({ nutriscore, nova, additives, allergens }
         </span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <span style={{ color: "#767676" }}>NOVA :</span>
+        <span style={{ color: "#767676" ,fontSize: 15 }}>NOVA :</span>
         <span style={{
           display: "inline-block",
           fontWeight: 700,
@@ -33,7 +33,7 @@ export default function ProductBadges({ nutriscore, nova, additives, allergens }
         </span>
       </div>
       <div style={{marginLeft:16}}>
-        <span style={{ color: "#767676" }}>Additifs :</span>
+        <span style={{ color: "#767676" ,fontSize: 15 }}>Additifs :</span>
         <span style={{
           marginLeft: 7,
           fontWeight: 700,
@@ -45,7 +45,7 @@ export default function ProductBadges({ nutriscore, nova, additives, allergens }
         </span>
       </div>
       <div style={{marginLeft:16}}>
-        <span style={{ color: "#767676" }}>Allergènes :</span>
+        <span style={{ color: "#767676" ,fontSize: 15 }}>Allergènes :</span>
         <span style={{
           marginLeft: 7,
           fontWeight: 700,

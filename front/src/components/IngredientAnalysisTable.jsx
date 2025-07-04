@@ -1,54 +1,90 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Chip
+} from "@mui/material";
+import SpaIcon from "@mui/icons-material/Spa";
+import NoFoodIcon from "@mui/icons-material/NoFood";
+
 export default function IngredientAnalysisTable({ data, onSelect }) {
   return (
-    <table style={{ borderCollapse: "collapse", width: "100%", marginTop: 20 }}>
-      <thead>
-        <tr style={{ background: "#e0e0e0" }}>
-          <th style={{ padding: 8 }}>Ingrédient</th>
-          <th style={{ padding: 8 }}>Vegan</th>
-          <th style={{ padding: 8 }}>Végétarien</th>
-          <th style={{ padding: 8 }}>Proportion estimée</th>
-          <th style={{ padding: 8 }}>Info</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((ing, idx) => (
-          <tr
-            key={idx}
-            onClick={() => onSelect(ing)}
-            style={{
-              background: ing.vegan === "no" ? "#ffeaea" : (ing.vegetarian === "no" ? "#fffbe5" : "#f7f7fa"),
-              fontWeight: (ing.vegan === "no" || ing.vegetarian === "no") ? "bold" : "normal",
-              cursor: "pointer"
-            }}
-            title="Voir les détails"
-          >
-            <td style={{ padding: 8 }}>{ing.text}</td>
-            <td style={{ padding: 8 }}>
-              <span style={{
-                color: ing.vegan === "yes" ? "#2ecc40" : "#e74c3c",
-                fontWeight: "bold"
-              }}>
-                {ing.vegan === "yes" ? "✔" : ing.vegan === "no" ? "✘" : "?"}
-              </span>
-            </td>
-            <td style={{ padding: 8 }}>
-              <span style={{
-                color: ing.vegetarian === "yes" ? "#2ecc40" : "#e67e22",
-                fontWeight: "bold"
-              }}>
-                {ing.vegetarian === "yes" ? "✔" : ing.vegetarian === "no" ? "✘" : "?"}
-              </span>
-            </td>
-            <td style={{ padding: 8 }}>
-              {ing.percent_estimate
-                ? `${Math.round(ing.percent_estimate)}%`
-                : "N/A"}
-            </td>
-            <td style={{ padding: 8, fontSize: 12 }}>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer
+      component={Paper}
+      elevation={0}
+      sx={{ mt: 3, borderRadius: 2, boxShadow: "0 2px 10px #a6b6c708" }}
+    >
+      <Table>
+        <TableHead>
+          <TableRow sx={{ background: "#f7f7fa" }}>
+            <TableCell sx={{ fontWeight: 700, fontSize: 16 }}>Ingrédient</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 700 }}>Vegan</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 700 }}>Végétarien</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 700 }}>Proportion estimée</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((ing, idx) => {
+            let bg = "#fff";
+            if (ing.vegan === "no") bg = "#ffeaea";
+            else if (ing.vegetarian === "no") bg = "#fffbe5";
+
+            return (
+              <TableRow
+                key={idx}
+                onClick={() => onSelect(ing)}
+                hover
+                sx={{
+                  background: bg,
+                  fontWeight: (ing.vegan === "no" || ing.vegetarian === "no") ? 600 : 400,
+                  cursor: "pointer",
+                  transition: "background 0.15s"
+                }}
+                title="Voir les détails"
+              >
+                <TableCell sx={{ fontWeight: 600, fontSize: 16 }}>
+                  {ing.text}
+                </TableCell>
+                <TableCell align="center">
+                  <Chip
+                    icon={ing.vegan === "yes" ? <SpaIcon color="success" /> : <NoFoodIcon color="error" />}
+                    label={ing.vegan === "yes" ? "Oui" : ing.vegan === "no" ? "Non" : "?"}
+                    size="small"
+                    sx={{
+                      bgcolor: ing.vegan === "yes" ? "#e6fbe6" : ing.vegan === "no" ? "#ffe6e6" : "#fafafa",
+                      color: ing.vegan === "yes" ? "#239d5e" : ing.vegan === "no" ? "#e74c3c" : "#999",
+                      fontWeight: 700,
+                      minWidth: 64
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  <Chip
+                    icon={ing.vegetarian === "yes" ? <SpaIcon color="success" /> : <NoFoodIcon color="warning" />}
+                    label={ing.vegetarian === "yes" ? "Oui" : ing.vegetarian === "no" ? "Non" : "?"}
+                    size="small"
+                    sx={{
+                      bgcolor: ing.vegetarian === "yes" ? "#e6fbe6" : ing.vegetarian === "no" ? "#fffbe5" : "#fafafa",
+                      color: ing.vegetarian === "yes" ? "#239d5e" : ing.vegetarian === "no" ? "#e67e22" : "#999",
+                      fontWeight: 700,
+                      minWidth: 64
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="center" sx={{ fontWeight: 700, fontSize: 15, color: "#2762f0" }}>
+                  {ing.percent_estimate
+                    ? `${Math.round(ing.percent_estimate)} %`
+                    : "N/A"}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

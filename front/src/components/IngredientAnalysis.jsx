@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { analyzeIngredients } from "../api/api";
 import IngredientAnalysisTable from "./IngredientAnalysisTable";
 import IngredientDetailDialog from "./IngredientDetailDialog";
+import {
+  Box,
+  Stack,
+  Typography,
+  TextField,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 
 export default function IngredientAnalysis() {
   const [input, setInput] = useState("");
@@ -23,22 +31,40 @@ export default function IngredientAnalysis() {
   };
 
   return (
-    <section style={{ marginTop: 32 }}>
-      <h2>Analyse des ingrédients</h2>
-      <form onSubmit={handleAnalyze} style={{ marginBottom: 24 }}>
-        <textarea
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          rows={2}
-          placeholder="Ex: sel, l'eau, pomme, viande"
-          style={{ width: 400, padding: 8 }}
-        />
-        <button type="submit" style={{ marginLeft: 12 }}>Analyser</button>
+    <Box sx={{ mt: 2.5 }}>
+      <form onSubmit={handleAnalyze}>
+        <Stack spacing={2}  mb={3}>
+          <TextField
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            multiline
+            rows={2}
+            placeholder="Ex : sel, l'eau, pomme, viande"
+            variant="outlined"
+            sx={{ minWidth: 120, maxWidth: 550, flex: 1 }}
+            autoFocus
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            disabled={loading || !input.trim()}
+            sx={{ minWidth: 120, borderRadius: 2 }}
+          >
+            Analyser
+          </Button>
+        </Stack>
       </form>
 
-      {loading && <p>Analyse en cours...</p>}
+      {loading && (
+        <Box sx={{ py: 3, textAlign: "center" }}>
+          <CircularProgress size={38} />
+          <Typography sx={{ mt: 2, color: "#889" }}>Analyse en cours…</Typography>
+        </Box>
+      )}
 
-      {result.length > 0 && (
+      {!loading && result.length > 0 && (
         <IngredientAnalysisTable data={result} onSelect={setSelected} />
       )}
 
@@ -47,6 +73,6 @@ export default function IngredientAnalysis() {
         ingredient={selected}
         onClose={() => setSelected(null)}
       />
-    </section>
+    </Box>
   );
 }
