@@ -1,4 +1,4 @@
-# 🥦 SoGood — Analyse Nutritionnelle des Produits de Supermarché
+# SoGood — Analyse Nutritionnelle des Produits de Supermarché
 
 **SoGood** est une plateforme open data interactive destinée à analyser, prédire et cartographier la qualité nutritionnelle des produits alimentaires issus de supermarchés. Elle vise à mieux informer les consommateurs et soutenir les décisions de santé publique.
 
@@ -17,6 +17,7 @@
 - **Back-end** : FastAPI (Python)
 - **Traitement Big Data** : PySpark sur HDFS
 - **Containerisation** : Docker / Docker Compose
+
 ![Texte alternatif](./assets/stack.png)
 ---
 
@@ -43,4 +44,15 @@ docker-compose up --build
 | **HDFS DataNode**       | Monitoring du DataNode Hadoop       | [http://localhost:9864](http://localhost:9864)           | 9864           |
 | **Spark Master**        | Interface Spark Master              | [http://localhost:8080](http://localhost:8080)           | 8080           |
 | **Spark Worker**        | Interface Spark Worker 1            | [http://localhost:8081](http://localhost:8081)           | 8081           |
+
+## Structure du projet
+---
+```text
+.
+├── back/               → API FastAPI 
+├── front/              → App React 
+├── datas/              → Datasets sample
+├── data_analyse/       → Explorations, modèles 
+├── spark-master/       → Config Spark master
+├── docker-compose.yml  → Configuration des services
 
