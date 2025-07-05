@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Button, Stack } from "@mui/material";
-import BlurOnIcon from "@mui/icons-material/BlurOn"; // Exemple d'icône à gauche (change si tu veux)
+import BlurOnIcon from "@mui/icons-material/BlurOn"; 
 
 export default function Navbar() {
   const location = useLocation();
@@ -20,6 +20,9 @@ export default function Navbar() {
           <NavLinkMUI to="/scan" current={location.pathname === "/scan"}>
             Scanner un code-barres
           </NavLinkMUI>
+          <NavLinkMUI to="/predict" current={location.pathname === "/predict"}>
+  Prédire Nutri-Score
+</NavLinkMUI>
         </Stack>
       </Toolbar>
     </AppBar>

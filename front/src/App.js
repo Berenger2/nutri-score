@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Analyse from "./pages/Analyse";
 import ProductDetail from "./pages/ProductDetail";
 import ScanCode from "./pages/ScanCode";
+import PredictNutriscore from "./pages/PredictNutriscore";
+
 
 export default function App() {
   return (
@@ -15,6 +17,7 @@ export default function App() {
         <Route path="/analyse" element={<Analyse />} />
         <Route path="/product/:code" element={<ProductDetail />} />
         <Route path="/scan" element={<ScanCode />} />
+        <Route path="/predict" element={<PredictNutriscore />} />
       </Routes>
     </Router>
   );
