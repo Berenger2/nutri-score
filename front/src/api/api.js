@@ -21,3 +21,14 @@ export async function analyzeIngredients(text, lang = "fr") {
   const res = await fetch(`${BASE_URL}/analysis?text=${encodeURIComponent(text)}&lang=${lang}`);
   return await res.json();
 }
+
+
+export async function predictNutriscore(inputData) {
+  const res = await fetch(`${BASE_URL}/predict`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(inputData)
+  });
+  if (!res.ok) throw new Error("Erreur API");
+  return await res.json();
+}
