@@ -45,8 +45,9 @@ docker-compose up --build
 | **Spark Master**        | Interface Spark Master              | [http://localhost:8080](http://localhost:8080)           | 8080           |
 | **Spark Worker**        | Interface Spark Worker 1            | [http://localhost:8081](http://localhost:8081)           | 8081           |
 
-## Structure du projet
 ---
+## Structure du projet
+
 ```text
 .
 ├── back/               → API FastAPI 
